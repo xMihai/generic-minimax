@@ -1,0 +1,8 @@
+{
+  "name": "generic-minimax",
+  "version": "0.0.1",
+  "description": "Generic minimax algorithm with alph-beta pruning",
+  "main": "index.js",
+  "author": "Mihai Răducanu",
+  "license": "MIT"
+}

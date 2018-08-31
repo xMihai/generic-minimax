@@ -1,0 +1,8 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "sync.quietSync": false,
+  "git.enableSmartCommit": true,
+  "javascript.validate.enable": false,
+  "files.insertFinalNewline": true
+}
