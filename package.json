@@ -4,5 +4,11 @@
   "description": "Generic minimax algorithm with alph-beta pruning",
   "main": "index.js",
   "author": "Mihai Răducanu",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "jest": "^23.5.0"
+  },
+  "scripts": {
+    "test": "jest"
+  }
 }
