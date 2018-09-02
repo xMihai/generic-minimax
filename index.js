@@ -1,15 +1,3 @@
-// Reducer arguments for choosing best evaluation for maximizing player
-const maximizeArgs = [
-  (result, item) => (item.value > result.value ? item : result),
-  { value: Number.NEGATIVE_INFINITY },
-]
-
-// Reducer arguments for choosing best evaluation for minimizing player
-const minimizeArgs = [
-  (result, item) => (item.value < result.value ? item : result),
-  { value: Number.POSITIVE_INFINITY },
-]
-
 const minimax = config => initialState => {
   // Get possible actions for this game state and get their values
   const evaluateActions = (state = initialState, depth = 1) =>
@@ -61,5 +49,17 @@ const minimax = config => initialState => {
 
   return { bestAction: bestAction(evaluations).action, evaluations }
 }
+
+// Reducer arguments for choosing best evaluation for maximizing player
+const maximizeArgs = [
+  (result, item) => (item.value > result.value ? item : result),
+  { value: Number.NEGATIVE_INFINITY },
+]
+
+// Reducer arguments for choosing best evaluation for minimizing player
+const minimizeArgs = [
+  (result, item) => (item.value < result.value ? item : result),
+  { value: Number.POSITIVE_INFINITY },
+]
 
 module.exports = { minimax }
