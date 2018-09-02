@@ -16,12 +16,13 @@ describe('generic-minimax', () => {
               : result,
           []
         ),
-      play: (state, action) =>
+      nextState: (state, action) =>
         state.map(
           (tokens, line) =>
             line === action.line ? tokens - action.tokens : tokens
         ),
-      score: state => (state.every(tokens => tokens === 0) ? 1 : 0),
+      score: (state, maximizingPlayer) =>
+        state.every(tokens => tokens === 0) ? (maximizingPlayer ? 1 : -1) : 0,
     })([1, 3, 5, 0])
 
     // console.log(JSON.stringify(output, null, 2))

@@ -11,16 +11,14 @@ const minimizeArgs = [
 const minimax = config => initialState => {
   const evaluateActions = (state = initialState, depth = 1) =>
     config.actions(state).map(action => ({
-      value: value(config.play(state, action), depth + 1),
+      value: value(config.nextState(state, action), depth + 1),
       action,
     }))
 
   const value = (nextState = initialState, depth = 1) => {
     const evaluations = evaluateActions(nextState, depth)
     return evaluations.length === 0
-      ? depth % 2
-        ? config.score(nextState)
-        : -config.score(nextState)
+      ? config.score(nextState, Boolean(depth % 2))
       : evaluations.reduce(...(depth % 2 ? maximizeArgs : minimizeArgs)).value
   }
 
