@@ -9,19 +9,19 @@ const minimizeArgs = [
 ]
 
 const minimax = config => initialState => {
-  const evaluateActions = (state = initialState, maximize = true) =>
+  const evaluateActions = (state = initialState, depth = 1) =>
     config.actions(state).map(action => ({
-      value: value(config.play(state, action), !maximize),
+      value: value(config.play(state, action), depth + 1),
       action,
     }))
 
-  const value = (nextState = initialState, maximize = true) => {
-    const evaluations = evaluateActions(nextState, maximize)
+  const value = (nextState = initialState, depth = 1) => {
+    const evaluations = evaluateActions(nextState, depth)
     return evaluations.length === 0
-      ? maximize
+      ? depth % 2
         ? config.score(nextState)
         : -config.score(nextState)
-      : evaluations.reduce(...(maximize ? maximizeArgs : minimizeArgs)).value
+      : evaluations.reduce(...(depth % 2 ? maximizeArgs : minimizeArgs)).value
   }
 
   const bestAction = evaluations => {
