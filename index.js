@@ -1,15 +1,44 @@
 const minimax = config => initialState => {
   // Get possible actions for this game state and get their values
-  const evaluateActions = (state = initialState, depth = 1) =>
-    config.actions(state).map(action => ({
-      action,
-      value: value(config.nextState(state, action), depth + 1),
-    }))
+  const evaluateActions = (
+    state = initialState,
+    depth = 1,
+    alpha = Number.NEGATIVE_INFINITY, // minimum score the maximizing player is assured of
+    beta = Number.POSITIVE_INFINITY // maximum score the minimizing player is assured of
+  ) => {
+    const evaluations = config.actions(state).reduce((result, action) => {
+      if (alpha >= beta) {
+        return result
+      }
+
+      const value = evaluateState(
+        config.nextState(state, action),
+        depth + 1,
+        alpha,
+        beta
+      )
+
+      if (depth % 2) {
+        alpha = Math.max(alpha, value)
+      } else {
+        beta = Math.min(beta, value)
+      }
+
+      return [...result, { action, value }]
+    }, [])
+
+    return evaluations
+  }
 
   // Calculate the value of a game state
-  const value = (state = initialState, depth = 1) => {
+  const evaluateState = (
+    state = initialState,
+    depth = 1,
+    alpha = Number.NEGATIVE_INFINITY,
+    beta = Number.POSITIVE_INFINITY
+  ) => {
     // Get possible actions and their values
-    const evaluations = evaluateActions(state, depth)
+    const evaluations = evaluateActions(state, depth, alpha, beta)
 
     return evaluations.length === 0
       ? // If there are no actions/evaluations, this is a end-game state. Get score.
